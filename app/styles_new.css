@@ -1,0 +1,128 @@
+input[type="number"] {
+  max-width: 80%;
+}
+
+.outer {
+  position: fixed;
+  top: 41px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  padding: 0;
+}
+.navbar-inverse {
+    background-color: #65c3ba;
+    border-color: #65c3ba;
+}
+
+#bg1 {
+    position:fixed;
+    background-image: url("bg1.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size:cover;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0.25;
+}
+
+.navbar-collapse .navbar-inverse .navbar-form {
+    border-color: #ffffff;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #ffffff;
+}
+
+#title_content{
+  font-family:fantasy;
+  font-weight: 900;
+  font-size: 20px;
+   color: #017156;
+}
+#title_content2{
+  font-family:fantasy;
+  font-weight: 900;
+  font-size: 20px;
+   color: #017156;
+}
+#title_content3{
+  font-family:fantasy;
+  font-weight: 900;
+  font-size: 20px;
+   color: #017156;
+   line-height: 2.8;
+}
+#title_content4{
+  font-family:fantasy;
+  font-weight: 900;
+  font-size: 20px;
+   color: #017156;
+   line-height: 2.8;
+}
+
+#label_content {
+  font-family: fantasy;
+  font-weight: 800;
+  font-size: 15px;
+  color: #017156;
+}
+#label_content2 {
+  font-family: fantasy;
+  font-weight: 800;
+  font-size: 15px;
+  color: #017156;
+}
+#label_content3 {
+  font-family: fantasy;
+  font-weight: 800;
+  font-size: 15px;
+  color: #017156;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #ffffff;
+}
+
+.panel-default{
+  border-color:#ffffff;
+  background-color:#ffffff;
+  opacity:0.7;
+}
+
+.btn-defalt{
+  padding:7px 14px;
+  font-size:14px;
+  font-weight:400;
+}
+
+.btn-default:hover {
+    color: #ffffff;
+    background-color: #ff6666;
+    border-color: #ff6666;
+}
+
+
+
+/* Customize fonts */
+body, input, button, select { 
+  font-family: 'Helvetica Neue', Helvetica;
+  font-weight: 300;
+}
+
+
+#controls {
+  /* Appearance */
+  background-color: white;
+  padding: 0 20px 20px 20px;
+  cursor: move;
+  /* Fade out while not hovering */
+  opacity: 0.65;
+  zoom: 0.9;
+  transition: opacity 500ms 1s;
+}
+

@@ -16,12 +16,12 @@ library(leaflet)
 library(shiny)
 library(shinyjs)
 
-museum<-na.omit(read.csv("C:/Users/cjsly/Documents/GitHub/Fall2017-project2-grp5/data/museums.csv"))
-theatre<-read.csv('C:/Users/cjsly/Documents/GitHub/Fall2017-project2-grp5/data/theatre.csv')
-gallery<-read.csv("C:/Users/cjsly/Documents/GitHub/Fall2017-project2-grp5/data/Gallery.csv")
-library<-read.csv('C:/Users/cjsly/Documents/GitHub/Fall2017-project2-grp5/data/library.csv')
+museum<-na.omit(read.csv("../data/museums.csv"))
+theatre<-read.csv('../theatre.csv')
+gallery<-read.csv("../data/Gallery.csv")
+library<-read.csv('../data/library.csv')
 
-restaurant<- read.csv('C:/Users/cjsly/Documents/GitHub/Fall2017-project2-grp5/data/restaurant_new.csv')
+restaurant<- read.csv('../data/restaurant_new.csv')
 icon_museum<-icons(iconUrl = 'icon_museum.png',iconHeight = 15, iconWidth = 15)
 icon_theatre<-icons(iconUrl = 'icon_theatre.png', iconHeight = 18, iconWidth = 18)
 

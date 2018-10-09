@@ -9,10 +9,11 @@ In this second project of GR5243 Applied Data Science, we develop a version 2.0 
 *The above general statement about project 2 can be removed once you are finished with your project. It is optional.
 
 ## Trip Advisor 2.0
-Term: Fall 2018 Section1, Team 5
+Term: Fall 2018
 
 + Team #
-+ **Projec title**: + Jiansong Chen
++ **Projec title**: Trip Advisor 2.0
+        + Jiansong Chen
 	+ Yi Lin
 	+ Yang Xing
 	+ Zhibo Zhou

@@ -11,8 +11,7 @@ In this second project of GR5243 Applied Data Science, we develop a version 2.0 
 Term: Fall 2018
 
 + Team #5
-+ **Projec title**: + Trip Advisor 2.0
-        
++ **Projec title**: Trip Advisor 2.0
 	+ Jiansong Chen
 	+ Yi Lin
 	+ Yang Xing

@@ -51,7 +51,7 @@ shinyUI(tagList(
                                width=200, height=110,
                                selectInput('destination', width=200,
                                            div(id='label_content', 'What type do you like?'),
-                                           choices=c('Gallery','Museum','Theater','Library'), multiple=FALSE)),
+                                           choices=c('','Gallery','Museum','Theater','Library'), multiple=FALSE)),
                  
                  hidden(
                    absolutePanel(id="Sure",

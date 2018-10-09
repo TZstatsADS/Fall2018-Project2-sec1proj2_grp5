@@ -1,0 +1,12 @@
+name: project2
+title: project2
+username:
+account: magicillusion
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 501123
+bundleId: 1630537
+url: https://magicillusion.shinyapps.io/project2/
+when: 1539039194.56576
+asMultiple: FALSE
+asStatic: FALSE

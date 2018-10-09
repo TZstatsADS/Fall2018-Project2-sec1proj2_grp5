@@ -1,4 +1,3 @@
-
 packages.used=c("leaflet","geosphere","shiny","dplyr","shinyjs")
 
 # check packages that need to be installed.
@@ -17,14 +16,14 @@ library(shiny)
 library(shinyjs)
 
 museum<-na.omit(read.csv("../data/museums.csv"))
-theatre<-read.csv('../theatre.csv')
+theatre<-read.csv("../data/theatre.csv")
 gallery<-read.csv("../data/Gallery.csv")
-library<-read.csv('../data/library.csv')
-
-restaurant<- read.csv('../data/restaurant_new.csv')
+library<-read.csv("../data/library.csv")
+restaurant<- read.csv("../data/restaurant_new.csv")
 icon_museum<-icons(iconUrl = 'icon_museum.png',iconHeight = 15, iconWidth = 15)
 icon_theatre<-icons(iconUrl = 'icon_theatre.png', iconHeight = 18, iconWidth = 18)
-
+icon_library<-icons(iconUrl = 'icon_library.png', iconHeight = 18, iconWidth = 18)
+icon_gallery<-icons(iconUrl = 'icon_gallery.png', iconHeight = 18, iconWidth = 18)
 icon_rest<-icons(iconUrl =  'icon_rest.png', iconHeight=25, iconWidth = 25)
 
 
@@ -37,7 +36,10 @@ shinyServer(function(input, output) {
    })
   
    observeEvent(input$destination, {
-     if('Museum'==input$destination){
+     if(''==input$destination){
+       leafletProxy('map') %>% setView(lng=-73.93, lat=40.77, zoom=12)
+     }
+     else if('Museum'==input$destination){
        
        leafletProxy('map') %>% clearMarkerClusters() %>% setView(lng=-73.93, lat=40.77, zoom=12) %>% 
          addMarkers(museum$longtitude, 
@@ -68,7 +70,7 @@ shinyServer(function(input, output) {
      {
        leafletProxy('map') %>% clearMarkerClusters() %>% setView(lng=-73.93, lat=40.77, zoom=12) %>% 
          addMarkers(gallery$LON,
-                    gallery$LAT, icon=icon_theatre,
+                    gallery$LAT, icon=icon_gallery,
                     clusterOptions=markerClusterOptions(),
                     popup=paste('Name:', gallery$NAME, '<br/>',
                                 'Tel:', gallery$TEL, '<br/>',
@@ -79,12 +81,12 @@ shinyServer(function(input, output) {
      else {
        leafletProxy('map') %>% clearMarkerClusters() %>% setView(lng=-73.93, lat=40.77, zoom=12) %>% 
          addMarkers(library$LON,
-                    library$LAT, icon=icon_theatre,
-                    clusterOptions=markerClusterOptions(),
+                    library$LAT, icon=icon_library,
                     popup=paste('Name:', library$NAME, '<br/>',
                                 'Zip:', library$ZIP, '<br/>',
                                 'Website:', a(library$URL, href=library$URL), '<br/>',
-                                'Add:', library$ADDRESS1, '<br/>'))
+                                'Add:', library$ADDRESS1, '<br/>'),
+                    clusterOptions=markerClusterOptions())
      }
     
    })
@@ -106,7 +108,7 @@ shinyServer(function(input, output) {
      observeEvent(input$map_marker_click, {
        show('Sure')
      })
-   
+     
    
      observeEvent(input$button1, {
        show('Resta')

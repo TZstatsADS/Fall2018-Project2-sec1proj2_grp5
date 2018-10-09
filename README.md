@@ -12,7 +12,8 @@ Term: Fall 2018
 
 + Team #5
 + **Projec title**: + Trip Advisor 2.0
-        + Jiansong Chen
+        
+	+ Jiansong Chen
 	+ Yi Lin
 	+ Yang Xing
 	+ Zhibo Zhou

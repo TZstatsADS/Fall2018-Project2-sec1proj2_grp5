@@ -1,4 +1,4 @@
-packages.used=c("leaflet","geosphere","shiny","shinydashboard","shinyjs","ggplot2")
+packages.used=c("leaflet","geosphere","shiny","shinydashboard","shinyjs","ggplot2","shinyWidgets","googleway")
 
 # check packages that need to be installed.
 packages.needed=setdiff(packages.used,
@@ -15,8 +15,8 @@ library(shinydashboard)
 library(leaflet)
 library(ggplot2)
 library(shinyjs)
-
-
+library(shinyWidgets)
+library(googleway)
 
 shinyUI(tagList(
   useShinyjs(),
@@ -24,19 +24,7 @@ shinyUI(tagList(
   navbarPage(
     id='navbar',
     inverse=TRUE, collapsible=TRUE, fluid=TRUE,
-    'Welcome, Art Foodie!',
-    tabPanel(title='Home', 
-             icon=icon('home'),
-             div(id='bg1'),
-             mainPanel(img(src='bg1.jpg'))),
-    tabPanel(title='About us',
-             icon=icon('user-circle-o'),
-             absolutePanel(div(id='title_content3','Hi there!This application was created by Tiantian Chen, Qian Shi, Yajie Guo and Stephanie Park. We are students from Columbia University who would like to help art-lovers find the best place to dine around major museums and theaters in New York City. Hope our App can help you find restaurants which match your preferences best. Enjoy your meal, Art Foodie!'))),
-    
-    tabPanel(title='App manual',
-             icon=icon('question-circle-o'),
-             absolutePanel(div(id='title_content4','How to use our App: Firstly, you need to choose destination of your travel---museum or theater? After selecting sure, you can choose what type of food you want, such as American, Italian, etc. Then we rank restaurants by grade or distance. After all these steps, a couple of restaurants which match your preferences will be shown. Finally, choose one and you are ready to go, enjoy!'),
-                           class='panel-default')),
+    'Trip Advisor 2.0',
     
     tabPanel(title='Let us try',
              id='tab3',
@@ -44,7 +32,7 @@ shinyUI(tagList(
              div(class='outer',
                  leafletOutput("map", width="100%",height="100%"),
                  
-                 absolutePanel(div(id='title_content','STEP 1: Choose An Art Destination'),
+                 absolutePanel(div(id='title_content','STEP 1: Starting with Art'),
                                class='panel-default',
                                draggable=TRUE, fixed=TRUE,
                                top=100, left=60, bottom='auto', right='auto',
@@ -78,26 +66,42 @@ shinyUI(tagList(
                                  actionButton('button3', 'Search ',width=100,
                                               icon=icon('hand-o-right'))
                    )
-                   
+                 ),
+                 
+                 hidden(
+                   absolutePanel(div(id='title_content4','Wanna Re-Start?'),id = "GoBack",
+                                 class='panel-default', top=590, left=60, bottom='auto', right='auto',
+                                 width=200, height=40,
+                                 actionButton('button5', 'RESET ARTS', width=160,
+                                              icon=icon('hand-o-left')),
+                                 actionButton('button4', 'RESET RESTAURANTS', width=185,
+                                              icon=icon('hand-o-left')))
                  ),
                  hidden(
-                   absolutePanel(div(id='title_content3','STEP3: Your Recommendation'),
+                   absolutePanel(div(id='title_content4','Our Recommendation'),id = "StartRecom",
+                                 class='panel-default', top=490, left=60, bottom='auto', right='auto',
+                                 width=200, height=50,
+                                 actionButton('button6', 'Not sure? Try this one!',width=250,icon=icon('hand-o-right'))
+                                 
+                   )
+                 ),
+                 hidden(
+                   absolutePanel(div(id='title_content3','Our Recommendation'),
                                  class='panel-default',
                                  id='Recom', draggable=TRUE, fix=TRUE, 
                                  top=60, right=60, left='auto', bottom='auto',
                                  width=350, height=185,
-                                 verbatimTextOutput('recom'),
-                                 actionButton('button5', 'RESET ARTS', width=160,
-                                              icon=icon('hand-o-left')),
-                                 actionButton('button4', 'RESET RESTAURANTS', width=185,
-                                              icon=icon('hand-o-left'))
+                                 verbatimTextOutput('recom')
                                  
                    )
                  )
-             ))
-    
-    
-    
+             )),
+    tabPanel(title='Direction',
+             icon=icon('question-circle-o'),
+             div(class='outer',
+                 google_mapOutput(outputId = "googlemap", width = "100%", height = "800px")
+             )
+    )
   ))
   
 )

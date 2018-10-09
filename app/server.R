@@ -29,12 +29,18 @@ icon_rest<-icons(iconUrl =  'icon_rest.png', iconHeight=25, iconWidth = 25)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-  
-
+   
+   globallng = -73.93
+   globallat = 40.77
+   startName =""
+   deslng = -73.91
+   deslat = 40.72
+   
    output$map<-renderLeaflet({
-     leaflet() %>% setView(lng=-73.93, lat=40.77, zoom=10) %>% addTiles()
+     leaflet() %>% setView(lng=-73.93, lat=40.77, zoom=10) %>% addProviderTiles('Esri.WorldTopoMap')
    })
-  
+   set_key("AIzaSyDTIop6J0QlXc8RRbj5M3kAVyOy3zyXzTE")
+   
    observeEvent(input$destination, {
      if(''==input$destination){
        leafletProxy('map') %>% setView(lng=-73.93, lat=40.77, zoom=12)
@@ -96,6 +102,10 @@ shinyServer(function(input, output) {
      if(is.null(click))
        return() 
      ## use click to access the zoom and set the view according this marker
+     globallng <<- click$lng
+     print(globallng)
+     globallat <<- click$lat
+     print(globallat)
      leafletProxy('map') %>% setView(lng=click$lng, 
                                      lat=click$lat,
                                      zoom=15)
@@ -115,115 +125,165 @@ shinyServer(function(input, output) {
      })
      
      observeEvent(input$button3,{
+       show('StartRecom')
+     })
+     
+     observeEvent(input$button6,{
        show('Recom')
      })
-
+     
+     observeEvent(input$button3,{
+       show('GoBack')
+     })
      
      observeEvent(input$button3, {
-         click<- input$map_marker_click
-         type<- input$type
-         rank<- input$rank
-         if(is.null(type))
-           return()
-         lng<- click$lng
-         lat<- click$lat
-         if(rank=='by Distance'){
-           
-           add_to_df<- reactive({
-             rest <-  restaurant %>% dplyr::filter(TYPE==type) %>% 
-               mutate(dist = sqrt((LON-lng)^2 + (LAT-lat)^2)) %>% arrange(dist)
-             rest
-           })
-           
-           new_df<- reactive({
-             all_rest <- add_to_df()
-             top6<- head(all_rest,6)
-             top6
-           })
-           
-            dist_column<- reactive({
-              avail_rest<- new_df()
-              dist<- avail_rest$dist
-              dist
-            })
-            
-            if(all(dist_column()>0.05)){
-              output$recom<- renderText('Oops! There is no available restaurant around you!')}
-            else{leafletProxy('map',data = new_df())  %>% addMarkers(lng = ~LON, lat = ~LAT, icon=icon_rest,
-                          popup=~paste('Name:', NAME, '<br/>',
-                                       'Tel:', TEL, '<br/>',
-                                       'Zip:', ZIP, '<br/>',
-                                       'Add:', ADDRESS, '<br/>',
-                                       'Yelp.Star:', YELP.STAR, '<br/>'))
-                 output$recom<- renderText({
-                   recom_rest<-new_df() 
-                   paste('Name:', recom_rest[1,]$NAME,'\n',
-                         'Tel:', recom_rest[1,]$TEL,'\n',
-                         'Zip:', recom_rest[1,]$ZIP,'\n',
-                         'Add:', recom_rest[1,]$ADDRESS,'\n',
-                         'Yelp.Star:', recom_rest[1,]$YELP.STAR)
-                 })
-                }
-       
-         }
-         else{
-           
-           add_to_df<- reactive({
-             rest<- restaurant %>% dplyr::filter(TYPE==type) %>% 
-               mutate(dist = sqrt((LON-lng)^2 + (LAT-lat)^2)) %>% arrange(dist) 
-             rest
-           })
-           
-           new_df<- reactive({
-             all_rest<-add_to_df()
-             top15<-head(all_rest, 15) %>% arrange(desc(YELP.STAR))
-             top6<- head(top15, 6)
-             top6
-           })
-           
-           dist_column<- reactive({
-             avail_rest<-new_df()
-             dist<- avail_rest$dist
-             dist
-           })
-           
-           if(all(dist_column()>0.05)){
-             output$recom<- renderText('Oops! There is no available restaurant around you!')}
-           else{leafletProxy('map',data = new_df())  %>% addMarkers(lng = ~LON, lat = ~LAT, icon=icon_rest,
+       click<- input$map_marker_click
+       type<- input$type
+       rank<- input$rank
+       if(is.null(type))
+         return()
+       lng<- click$lng
+       lat<- click$lat
+       if(rank=='by Distance'){
+         
+         add_to_df<- reactive({
+           rest <-  restaurant %>% dplyr::filter(TYPE==type) %>% 
+             mutate(dist = sqrt((LON-lng)^2 + (LAT-lat)^2)) %>% arrange(dist)
+           rest
+         })
+         
+         new_df<- reactive({
+           all_rest <- add_to_df()
+           top6<- head(all_rest,6)
+           top6
+         })
+         
+         dist_column<- reactive({
+           avail_rest<- new_df()
+           dist<- avail_rest$dist
+           dist
+         })
+         
+         if(all(dist_column()>0.05)){
+           output$recom<- renderText('Oops! There is no available restaurant around you!')}
+         else{leafletProxy('map',data = new_df())  %>% addMarkers(lng = ~LON, lat = ~LAT, icon=icon_rest,
                                                                   popup=~paste('Name:', NAME, '<br/>',
                                                                                'Tel:', TEL, '<br/>',
                                                                                'Zip:', ZIP, '<br/>',
                                                                                'Add:', ADDRESS, '<br/>',
                                                                                'Yelp.Star:', YELP.STAR, '<br/>'))
-                output$recom<- renderText({
-                  recom_rest<-new_df() 
-                  paste('Name:', recom_rest[1,]$NAME,'\n',
-                        'Tel:', recom_rest[1,]$TEL,'\n',
-                        'Zip:', recom_rest[1,]$ZIP,'\n',
-                        'Add:', recom_rest[1,]$ADDRESS,'\n',
-                        'Yelp.Star:', recom_rest[1,]$YELP.STAR)
-                })
-               }
+           output$recom<- renderText({
+             recom_rest<-new_df() 
+             deslng = recom_rest[1,]$LON
+             print(deslng)
+             deslat = recom_rest[1,]$LAT
+             print(deslat)
+             df <- google_directions(origin = c(globallat, globallng),
+                                     destination = c(deslat, deslng),
+                                     mode = "walking",
+                                     simplify = TRUE)
+             print(df)
+             df_routes <- data.frame(polyline = direction_polyline(df)) 
+             dfdata <- structure(list(lat = c(globallat, deslat), lon = c(globallng, deslng)), .Names = c("lat","lon"), row.names = 379:380, class = "data.frame")
+             
+             output$googlemap <- renderGoogle_map({
+               
+               google_map(location = c(40.77, -73.93), 
+                          data = dfdata,
+                          zoom = 12,
+                          height = "800px")  %>% 
+                 add_polylines(data = df_routes, polyline = "polyline") %>% 
+                 add_markers()
+               
+             })
+             paste('Name:', recom_rest[1,]$NAME,'\n',
+                   'Tel:', recom_rest[1,]$TEL,'\n',
+                   'Zip:', recom_rest[1,]$ZIP,'\n',
+                   'Add:', recom_rest[1,]$ADDRESS,'\n',
+                   'Yelp.Star:', recom_rest[1,]$YELP.STAR)
+           })
          }
+         
+       }
+       else{
+         
+         add_to_df<- reactive({
+           rest<- restaurant %>% dplyr::filter(TYPE==type) %>% 
+             mutate(dist = sqrt((LON-lng)^2 + (LAT-lat)^2)) %>% arrange(dist) 
+           rest
+         })
+         
+         new_df<- reactive({
+           all_rest<-add_to_df()
+           top15<-head(all_rest, 15) %>% arrange(desc(YELP.STAR))
+           top6<- head(top15, 6)
+           top6
+         })
+         
+         dist_column<- reactive({
+           avail_rest<-new_df()
+           dist<- avail_rest$dist
+           dist
+         })
+         
+         if(all(dist_column()>0.05)){
+           output$recom<- renderText('Oops! There is no available restaurant around you!')}
+         else{leafletProxy('map',data = new_df())  %>% addMarkers(lng = ~LON, lat = ~LAT, icon=icon_rest,
+                                                                  popup=~paste('Name:', NAME, '<br/>',
+                                                                               'Tel:', TEL, '<br/>',
+                                                                               'Zip:', ZIP, '<br/>',
+                                                                               'Add:', ADDRESS, '<br/>',
+                                                                               'Yelp.Star:', YELP.STAR, '<br/>'))
+           output$recom<- renderText({
+             recom_rest<-new_df() 
+             deslng = recom_rest[1,]$LON
+             print(deslng)
+             deslat = recom_rest[1,]$LAT
+             print(deslat)
+             print(globallng)
+             print(globallat)
+             df <- google_directions(origin = c(globallat, globallng),
+                                     destination = c(deslat, deslng),
+                                     mode = "walking",
+                                     simplify = TRUE)
+             print(df)
+             
+             
+             df_routes <- data.frame(polyline = direction_polyline(df)) 
+             dfdata <- structure(list(lat = c(globallat, deslat), lon = c(globallng, deslng)), .Names = c("lat","lon"), row.names = 379:380, class = "data.frame")
+             
+             output$googlemap <- renderGoogle_map({
+               
+               google_map(location = c(40.77, -73.93), 
+                          data = dfdata,
+                          zoom = 12,
+                          height = "800px")  %>% 
+                 add_polylines(data = df_routes, polyline = "polyline")  %>% 
+                 add_markers()
+               
+             })
+             paste('Name:', recom_rest[1,]$NAME,'\n',
+                   'Tel:', recom_rest[1,]$TEL,'\n',
+                   'Zip:', recom_rest[1,]$ZIP,'\n',
+                   'Add:', recom_rest[1,]$ADDRESS,'\n',
+                   'Yelp.Star:', recom_rest[1,]$YELP.STAR)
+           })
+         }
+       }
      })
      
      observeEvent(input$button4,{
        leafletProxy('map') %>% clearMarkers()
        hide('Recom')
+       hide("GoBack")
      })
      
      observeEvent(input$button5,{
        leafletProxy('map') %>% clearMarkers()
+       hide("StartRecom")
        hide('Recom')
        hide('Resta')
        hide('Sure')
+       hide("GoBack")
      })
 })
-
-
-
-
-
-
-
-

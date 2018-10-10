@@ -1,4 +1,4 @@
-packages.used=c("leaflet","geosphere","shiny","shinydashboard","shinyjs","ggplot2","shinyWidgets","googleway")
+packages.used=c("leaflet","geosphere","shiny","shinydashboard","shinyjs","ggplot2","shinyWidgets","googleway","owmr")
 
 # check packages that need to be installed.
 packages.needed=setdiff(packages.used,
@@ -9,7 +9,7 @@ if(length(packages.needed)>0){
   install.packages(packages.needed, dependencies = TRUE)
 }
 
-
+library(owmr)
 library(shiny)
 library(shinydashboard)
 library(leaflet)
@@ -18,13 +18,42 @@ library(shinyjs)
 library(shinyWidgets)
 library(googleway)
 
-shinyUI(tagList(
+api <- "d525a06f470a8117b7eef4106ec20011"
+owmr_settings(api_key = api)
+
+shinyUI(
+  fluidPage(
   useShinyjs(),
   includeCSS("styles_new.css"),
   navbarPage(
     id='navbar',
     inverse=TRUE, collapsible=TRUE, fluid=TRUE,
     'Trip Advisor 2.0',
+    tabPanel("Home",icon=icon("home"),
+             div(class="home",
+                 align="center",
+                 br(),
+                 br(),
+                 br(),
+                 br(),
+                 br(),
+                 br(),
+                 br(),
+                 br(),
+                 br(),
+                 br(),
+                 br(),
+                 br(),
+                 h1("Find Your Off-Campus Housing in Manhattan",style="color:white;font-family: Times New Roman;font-size: 300%;font-weight: bold;"),
+                 br(),
+                 br(),
+                 br(),
+                 h3("Gourp6- Fall 2017",style="color:white;font-family: Times New Roman;font-size: 200%;font-weight: bold;"),
+                 br(),
+                 tags$head(
+                   tags$style(HTML("body{background-image: url(NYC.jpg);}")))
+             )
+    ),
     tabPanel(title='Let us try',
              id='tab3',
              icon=icon('fas fa-google'),
@@ -101,16 +130,20 @@ shinyUI(tagList(
              )),
     tabPanel(title='Direction',
              icon=icon('fas fa-car'),
-             div(class='outer',
-                 google_mapOutput(outputId = "googlemap", width = "100%", height = "800px")
-  #               absolutePanel(div(id='title_content5','Weather'),
-  #                             class='panel-default',
-  #                             id='Recom', draggable=F, fix=TRUE, 
-  #                             top=60, left=50, right='auto', bottom='auto',
-  #                             width=350, height=185
-  #              )
+             fixedRow(
+               column(6, align="left",div(id='title_content','STEP 1:Starting with art'),
+                      p('Weather:', (res <- get_current("New York", units = "metric") %>%
+                                       flatten())["weather.description"])),
+               column(9, align="right",
+                      google_mapOutput(outputId = "googlemap", width = "100%", height = "800px"))
+
              )
-    )
+    ),
+  tabPanel("About Us",
+           fluidRow(
+  
+           )
+  )
   ))
   
 )

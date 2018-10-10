@@ -1,4 +1,4 @@
-packages.used=c("leaflet","geosphere","shiny","dplyr","shinyjs")
+packages.used=c("leaflet","geosphere","shiny","dplyr","shinyjs","owmr")
 
 # check packages that need to be installed.
 packages.needed=setdiff(packages.used,
@@ -8,7 +8,6 @@ packages.needed=setdiff(packages.used,
 if(length(packages.needed)>0){
   install.packages(packages.needed, dependencies = TRUE)
 }
-
 
 library(dplyr)
 library(leaflet)
@@ -28,7 +27,7 @@ icon_rest<-icons(iconUrl =  'icon_rest.png', iconHeight=25, iconWidth = 25)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-   
+
    globallng = -73.93
    globallat = 40.77
    startName =""
@@ -39,6 +38,7 @@ shinyServer(function(input, output) {
      leaflet() %>% setView(lng=-73.93, lat=40.77, zoom=10) %>% addProviderTiles('Esri.WorldTopoMap')
    })
    set_key("AIzaSyDTIop6J0QlXc8RRbj5M3kAVyOy3zyXzTE")
+      
    
    observeEvent(input$destination, {
      if(''==input$destination){
@@ -188,7 +188,7 @@ shinyServer(function(input, output) {
                           zoom = 12,
                           height = "800px")  %>% 
                  add_polylines(data = df_routes, polyline = "polyline") %>% 
-                 add_markers()
+                 add_markers() 
                
              })
              paste('Name:', recom_rest[1,]$NAME,'\n',
@@ -266,7 +266,7 @@ shinyServer(function(input, output) {
          }
        }
      })
-     
+
      observeEvent(input$button3,{
        leafletProxy('map') %>% clearMarkers()
        hide("StartRecom")

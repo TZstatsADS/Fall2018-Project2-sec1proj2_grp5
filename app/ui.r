@@ -145,7 +145,13 @@ shinyUI(
                br(),
                column(8, align="center", offset = 2, includeMarkdown("contact.md"))
              )
+
     )
-  ))
-  
+  )
 )
+)
+
+  
+
+
+

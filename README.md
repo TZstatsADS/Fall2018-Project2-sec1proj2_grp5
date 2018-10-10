@@ -2,7 +2,7 @@
 
 ### [Project Description](doc/project2_desc.md)
 
-![screenshot](doc/Screenshot new.png)
+![screenshot](doc/Screenshot.png)
 
 In this second project of GR5243 Applied Data Science, we develop a version 2.0 of an *Exploratory Data Analysis and Visualization* shiny app as a trip advising tool using [NYC Open Data](https://opendata.cityofnewyork.us/)  website. See [Project 2 Description](doc/project2_desc.md) for more details.  
 

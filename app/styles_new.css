@@ -12,8 +12,8 @@ input[type="number"] {
   padding: 0;
 }
 .navbar-inverse {
-    background-color: #65c3ba;
-    border-color: #65c3ba;
+    background-color: #3367D6;
+    border-color: #3367D6;
 }
 
 #bg1 {
@@ -39,49 +39,49 @@ input[type="number"] {
 }
 
 #title_content{
-  font-family:fantasy;
-  font-weight: 900;
+  font-family:helvetica;
+  font-weight: 600;
   font-size: 20px;
-   color: #017156;
+   color: #3367D6;
 }
 #title_content2{
-  font-family:fantasy;
-  font-weight: 900;
+  font-family:helvetica;
+  font-weight: 600;
   font-size: 20px;
-   color: #017156;
+   color: #3367D6;
 }
 #title_content3{
-  font-family:fantasy;
-  font-weight: 900;
+  font-family:helvetica;
+  font-weight: 600;
   font-size: 20px;
-   color: #017156;
+   color: #3367D6;
    line-height: 2.8;
 }
 #title_content4{
-  font-family:fantasy;
-  font-weight: 900;
+  font-family:helvetica;
+  font-weight: 600;
   font-size: 20px;
-   color: #017156;
-   line-height: 2.8;
+   color: #3367D6;
+
 }
 
 #label_content {
-  font-family: fantasy;
+  font-family:helvetica;
   font-weight: 800;
   font-size: 15px;
-  color: #017156;
+  color: #3367D6;
 }
 #label_content2 {
-  font-family: fantasy;
+  font-family:helvetica;
   font-weight: 800;
   font-size: 15px;
-  color: #017156;
+  color: #3367D6;
 }
 #label_content3 {
-  font-family: fantasy;
+  font-family:helvetica;
   font-weight: 800;
   font-size: 15px;
-  color: #017156;
+  color: #3367D6;
 }
 
 .navbar-inverse .navbar-brand {
@@ -91,7 +91,8 @@ input[type="number"] {
 .panel-default{
   border-color:#ffffff;
   background-color:#ffffff;
-  opacity:0.7;
+  
+  padding: 10px;
 }
 
 .btn-defalt{

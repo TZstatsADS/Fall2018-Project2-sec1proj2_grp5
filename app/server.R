@@ -26,7 +26,6 @@ icon_library<-icons(iconUrl = 'icon_library.png', iconHeight = 18, iconWidth = 1
 icon_gallery<-icons(iconUrl = 'icon_gallery.png', iconHeight = 18, iconWidth = 18)
 icon_rest<-icons(iconUrl =  'icon_rest.png', iconHeight=25, iconWidth = 25)
 
-
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
    
@@ -111,10 +110,6 @@ shinyServer(function(input, output) {
                                      zoom=15)
    })
    
-   observeEvent(input$button2,{
-     leafletProxy('map') %>% setView(lng=-73.93, lat=40.77, zoom=12)
-   })
-   
      observeEvent(input$map_marker_click, {
        show('Sure')
      })
@@ -124,19 +119,19 @@ shinyServer(function(input, output) {
        show('Resta')
      })
      
-     observeEvent(input$button3,{
+     observeEvent(input$button2,{
        show('StartRecom')
      })
      
-     observeEvent(input$button6,{
+     observeEvent(input$button4,{
        show('Recom')
      })
      
-     observeEvent(input$button3,{
+     observeEvent(input$button2,{
        show('GoBack')
      })
      
-     observeEvent(input$button3, {
+     observeEvent(input$button2, {
        click<- input$map_marker_click
        type<- input$type
        rank<- input$rank
@@ -272,13 +267,7 @@ shinyServer(function(input, output) {
        }
      })
      
-     observeEvent(input$button4,{
-       leafletProxy('map') %>% clearMarkers()
-       hide('Recom')
-       hide("GoBack")
-     })
-     
-     observeEvent(input$button5,{
+     observeEvent(input$button3,{
        leafletProxy('map') %>% clearMarkers()
        hide("StartRecom")
        hide('Recom')

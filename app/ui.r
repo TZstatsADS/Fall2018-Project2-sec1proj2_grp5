@@ -22,13 +22,17 @@ api <- "d525a06f470a8117b7eef4106ec20011"
 owmr_settings(api_key = api)
 
 shinyUI(
-  fluidPage(
+  tagList(
   useShinyjs(),
   includeCSS("styles_new.css"),
   navbarPage(
     id='navbar',
     inverse=TRUE, collapsible=TRUE, fluid=TRUE,
     'Trip Advisor 2.0',
+    tabPanel("Home",icon=icon("home"),
+             mainPanel(img(src='NewYork.jpg')),
+             align="center"
+    ),
     tabPanel(title='Let us try',
              id='tab3',
              icon=icon('fas fa-google'),
@@ -114,24 +118,24 @@ shinyUI(
                                draggable=TRUE, fixed=TRUE,
                                top=100, left=60, bottom='auto', right='auto',
                                width=320, height=110,
-                               print(res <- get_current("New York", units = "metric") %>%
-                                                 flatten())["weather.description"], style="color:Black;font-family: Times New Roman;font-size: 120%;font-weight: bold;"),
+                               print((res <- get_current("New York", units = "metric") %>%
+                                                 flatten())["weather.description"]), style="color:Black;font-family: Times New Roman;font-size: 120%;font-weight: bold;"),
                  
                  absolutePanel(div(id='title_content','How about the temperature?'),
                                class='panel-default',
                                draggable=TRUE, fixed=TRUE,
                                top=200, left=60, bottom='auto', right='auto',
                                width=320, height=110,
-                               print(res <- get_current("New York", units = "metric") %>%
-                                       flatten())["main.temp"], style="color:Black;font-family: Times New Roman;font-size: 120%;font-weight: bold;","Celsius"),
+                               print((res <- get_current("New York", units = "metric") %>%
+                                       flatten())["main.temp"]), style="color:Black;font-family: Times New Roman;font-size: 120%;font-weight: bold;","Celsius"),
                  
                  absolutePanel(div(id='title_content','What is the humidity?'),
                                class='panel-default',
                                draggable=TRUE, fixed=TRUE,
                                top=300, left=60, bottom='auto', right='auto',
                                width=320, height=110,
-                               print(res <- get_current("New York", units = "metric") %>%
-                                       flatten())["main.humidity"], style="color:Black;font-family: Times New Roman;font-size: 120%;font-weight: bold;","%")
+                               print((res <- get_current("New York", units = "metric") %>%
+                                       flatten())["main.humidity"]), style="color:Black;font-family: Times New Roman;font-size: 120%;font-weight: bold;","%")
                  
                )
               ),
@@ -144,14 +148,8 @@ shinyUI(
                br(),
                br(),
                column(8, align="center", offset = 2, includeMarkdown("contact.md"))
+               
              )
-
-    )
-  )
-)
-)
-
+            )
+)))
   
-
-
-

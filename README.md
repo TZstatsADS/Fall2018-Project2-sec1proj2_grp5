@@ -16,6 +16,8 @@ Term: Fall 2018
 	+ Yi Lin
 	+ Yang Xing
 	+ Zhibo Zhou
+	
++ **Application access link**: (link)
 
 + **Project summary**: The functionality of the application is to provide useful information for users when traveling in New York City based on their inputs of interest. Specifically, recommended restaurants are provided for users based on their selection of place to visit around New York City in different categories and a route map will be provided between the restaurant and the place.
 

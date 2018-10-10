@@ -29,31 +29,6 @@ shinyUI(
     id='navbar',
     inverse=TRUE, collapsible=TRUE, fluid=TRUE,
     'Trip Advisor 2.0',
-    tabPanel("Home",icon=icon("home"),
-             div(class="home",
-                 align="center",
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 br(),
-                 h1("Find Your Off-Campus Housing in Manhattan",style="color:white;font-family: Times New Roman;font-size: 300%;font-weight: bold;"),
-                 br(),
-                 br(),
-                 br(),
-                 h3("Gourp6- Fall 2017",style="color:white;font-family: Times New Roman;font-size: 200%;font-weight: bold;"),
-                 br(),
-                 tags$head(
-                   tags$style(HTML("body{background-image: url(NYC.jpg);}")))
-             )
-    ),
     tabPanel(title='Let us try',
              id='tab3',
              icon=icon('fas fa-google'),
@@ -86,7 +61,7 @@ shinyUI(
                                  selectInput('type', div(id='label_content2','Categories:'),width=320,
                                              choices=c('American','Italian','Asian','Mexician',
                                                        'Chinese','European','Other'), multiple=FALSE),
-                                 selectInput('rank', div(id='label_content3','Ranking by:'),width=320,
+                                 selectInput('rank', div(id='label_content3','Rank by:'),width=320,
                                              choices=c('by Yelp Star','by Distance'), multiple=FALSE),
                                  absolutePanel(id="SearchPanel",
                                                top=200, left=0,
@@ -128,22 +103,49 @@ shinyUI(
                    )
                  )
              )),
+    
     tabPanel(title='Direction',
              icon=icon('fas fa-car'),
-             fixedRow(
-               column(6, align="left",div(id='title_content','STEP 1:Starting with art'),
-                      p('Weather:', (res <- get_current("New York", units = "metric") %>%
-                                       flatten())["weather.description"])),
-               column(9, align="right",
-                      google_mapOutput(outputId = "googlemap", width = "100%", height = "800px"))
-
+             div(class='outer',
+                 google_mapOutput(outputId = "googlemap", width = "100%", height = "800px"),
+                 
+                 absolutePanel(div(id='title_content','What is the weather like?'),
+                               class='panel-default',
+                               draggable=TRUE, fixed=TRUE,
+                               top=100, left=60, bottom='auto', right='auto',
+                               width=320, height=110,
+                               print(res <- get_current("New York", units = "metric") %>%
+                                                 flatten())["weather.description"], style="color:Black;font-family: Times New Roman;font-size: 120%;font-weight: bold;"),
+                 
+                 absolutePanel(div(id='title_content','How about the temperature?'),
+                               class='panel-default',
+                               draggable=TRUE, fixed=TRUE,
+                               top=200, left=60, bottom='auto', right='auto',
+                               width=320, height=110,
+                               print(res <- get_current("New York", units = "metric") %>%
+                                       flatten())["main.temp"], style="color:Black;font-family: Times New Roman;font-size: 120%;font-weight: bold;","Celsius"),
+                 
+                 absolutePanel(div(id='title_content','What is the humidity?'),
+                               class='panel-default',
+                               draggable=TRUE, fixed=TRUE,
+                               top=300, left=60, bottom='auto', right='auto',
+                               width=320, height=110,
+                               print(res <- get_current("New York", units = "metric") %>%
+                                       flatten())["main.humidity"], style="color:Black;font-family: Times New Roman;font-size: 120%;font-weight: bold;","%")
+                 
+               )
+              ),
+    
+    tabPanel("About Us",
+             fluidRow(
+               br(),
+               br(),
+               br(),
+               br(),
+               br(),
+               column(8, align="center", offset = 2, includeMarkdown("contact.md"))
              )
-    ),
-  tabPanel("About Us",
-           fluidRow(
-  
-           )
-  )
+    )
   ))
   
 )

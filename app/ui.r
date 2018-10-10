@@ -141,9 +141,17 @@ shinyUI(
     ),
   tabPanel("About Us",
            fluidRow(
+             br(),
+             br(),
+             br(),
+             br(),
+             column(7, img(src='thankyou.gif', align = "right")),
+             column(8, align="center", offset = 2, includeMarkdown("contact.md"))
   
            )
   )
   ))
   
 )
+
+

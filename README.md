@@ -18,7 +18,7 @@ Term: Fall 2018
 	+ Zhibo Zhou
 	
 + **Application access link**: 
-	+ Improved version: https://tripadvisor2.shinyapps.io/shina_app/
+	+ Improved version: 
 	+ Previous version: https://qianshi58.shinyapps.io/fall2017-proj2-grp5/
 
 + **Project summary**: The functionality of the application is to provide useful information for users when traveling in New York City based on their inputs of interest. Specifically, recommended restaurants are provided for users based on their selection of place to visit around New York City in different categories and a route map will be provided between the restaurant and the place.

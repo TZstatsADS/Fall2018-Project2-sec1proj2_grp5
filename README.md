@@ -21,7 +21,11 @@ Term: Fall 2018
 	+ Improved version: 
 	+ Previous version: https://qianshi58.shinyapps.io/fall2017-proj2-grp5/
 
-+ **Project summary**: The functionality of the application is to provide useful information for users when traveling in New York City based on their inputs of interest. Specifically, recommended restaurants are provided for users based on their selection of place to visit around New York City in different categories and a route map will be provided between the restaurant and the place.
++ **Project summary**: The functionality of the application is to provide useful information for users when traveling in New York City based on their inputs of interest. Specifically, recommended restaurants are provided for users based on their selection of place to visit around New York City in different categories and a route map will be provided between the restaurant and the place. In steps:
+	+ Step 1: User selects one category of entertainment among museums, theatres, galleries and libraries and corresponding available places will be provided. User should then specify one by clicking the icon to go to the next step. 
+	+ Step 2: User selects one category among all types of restaurants and ranking criteria. Top 5 nearby restaurants ranked by selected criteria will be shown on the map.
+	+ Step 3: If user wants to see restaurant recommendation by the app then click 'Not sure? try this one!' to see details of recommended restaurant. In addition, direction route and weather information will be provided in Direction panel.
+	+ Optional: User could click 'Get restart' to go back all the way to step 1, entertainment selection.
 
 + **Contribution statement**: ([default](doc/a_note_on_contributions.md)) Jiansong Chen (JC), Yi Lin (YL), Yang Xing (YX) and Zhibo Zhou (ZZ) designed the appplication. Specifically, JC, YX and ZZ designed and improved main panel (UI and server); JC, YL and ZZ designed and improved navigation functionality; JC added new category of application data; YL and YX documented and wrote README file. All team members contributed to the GitHub repository and prepared the presentation. All team members approve our work presented in our GitHub repository including this contribution statement. 
 	
